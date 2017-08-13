@@ -5,7 +5,6 @@ import Intersect from '../src'
 // Mock
 global.IntersectionObserver = IntersectionObserver
 
-
 test('It should be a function', () => {
   expect(typeof Intersect.created).toBe('function')
 })
@@ -65,7 +64,7 @@ test('It should emit "intersected" event when the component is intersected', asy
   expect(spy).toHaveBeenCalledTimes(1)
 })
 
-test('It should be possible to set the threshold in a property', async () => {
+test('It should be possible to set the threshold property', async () => {
   const mockedIntersect = Object.assign({}, Intersect)
   const vm = new Vue({
     template: `<intersect :threshold="[0, 0.5]"><div></div></intersect>`,
@@ -75,6 +74,33 @@ test('It should be possible to set the threshold in a property', async () => {
   await vm.$nextTick()
 
   expect(vm._vnode.componentInstance.$options.propsData.threshold).toEqual([0, 0.5])
+})
+
+test('It should be possible to set the root property', async () => {
+  const mockedIntersect = Object.assign({}, Intersect)
+  const vm = new Vue({
+    template: `<intersect :root="viewPort"><div></div></intersect>`,
+    components: {Intersect: mockedIntersect},
+    data () {
+      return {
+        viewPort: document.body
+      }
+    }
+  }).$mount()
+
+  await vm.$nextTick()
+  expect(vm._vnode.componentInstance.$options.propsData.root).toBeInstanceOf(HTMLElement)
+})
+
+test('It should be possible to set the rootMargin property', async () => {
+  const mockedIntersect = Object.assign({}, Intersect)
+  const vm = new Vue({
+    template: `<intersect root-margin="1px 1px 1px 1px"><div></div></intersect>`,
+    components: {Intersect: mockedIntersect}
+  }).$mount()
+
+  await vm.$nextTick()
+  expect(vm._vnode.componentInstance.$options.propsData.rootMargin).toBe('1px 1px 1px 1px')
 })
 
 test('It should disconnect the IntersectionObserver when the component is destroyed', async () => {

@@ -16,6 +16,20 @@ export default {
       default: function _default() {
         return [0.2];
       }
+    },
+    root: {
+      type: HTMLElement,
+      required: false,
+      default: function _default() {
+        return null;
+      }
+    },
+    rootMargin: {
+      type: String,
+      required: false,
+      default: function _default() {
+        return '0px 0px 0px 0px';
+      }
     }
   },
   created: function created() {
@@ -26,7 +40,11 @@ export default {
         _this.$emit('intersected');
         _this.observer.disconnect();
       }
-    }, { threshold: this.threshold });
+    }, {
+      threshold: this.threshold,
+      root: this.root,
+      rootMargin: this.rootMargin
+    });
   },
   mounted: function mounted() {
     var _this2 = this;

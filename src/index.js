@@ -14,6 +14,16 @@ export default {
       type: Array,
       required: false,
       default: () => [0.2]
+    },
+    root: {
+      type: HTMLElement,
+      required: false,
+      default: () => null
+    },
+    rootMargin: {
+      type: String,
+      required: false,
+      default: () => '0px 0px 0px 0px'
     }
   },
   created () {
@@ -22,7 +32,11 @@ export default {
         this.$emit('intersected')
         this.observer.disconnect()
       }
-    }, {threshold: this.threshold})
+    }, {
+      threshold: this.threshold,
+      root: this.root,
+      rootMargin: this.rootMargin
+    })
   },
   mounted () {
     this.$nextTick(() => {
