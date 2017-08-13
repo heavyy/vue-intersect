@@ -1,0 +1,31 @@
+{
+  "name": "vue-intersect",
+  "version": "1.0.0",
+  "description": "A Vue component to add intersection observe a Vue component or HTML element.",
+  "main": "dist/index.js",
+  "repository": "git@github.com:heavyy/vue-intersect.git",
+  "author": "Heavyy <hello@heavyy.io>",
+  "license": "MIT",
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+    "lint": "./node_modules/.bin/eslint -c ./.eslintrc.js src/**/*.js",
+    "lint:fix": "./node_modules/.bin/eslint -c ./.eslintrc.js src/**/*.js --fix"
+  },
+  "dependencies": {
+    "vue": "^2.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^4.4.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^20.0.4"
+  }
+}
