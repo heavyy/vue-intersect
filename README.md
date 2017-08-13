@@ -1,7 +1,7 @@
 # Vue Intersect
 **A Vue component to add intersection-observer to a Vue component or HTML element.**
 
-[![npm version](https://badge.fury.io/js/vue-intersect.svg)](https://badge.fury.io/js/vue-intersect) [![Coverage Status](https://coveralls.io/repos/github/heavyy/vue-intersect/badge.svg)](https://coveralls.io/github/heavyy/vue-intersect)
+[![npm version](https://badge.fury.io/js/vue-intersect.svg)](https://badge.fury.io/js/vue-intersect) [![Coverage Status](https://coveralls.io/repos/github/heavyy/vue-intersect/badge.svg)](https://coveralls.io/github/heavyy/vue-intersect) ![Build status](https://img.shields.io/travis/heavyy/vue-intersect.svg)
 
 
 
