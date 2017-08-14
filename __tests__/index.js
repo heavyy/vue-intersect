@@ -43,15 +43,15 @@ test('It should mount correctly and add the item to the observers list', async (
   expect(vm.$el.textContent).toBe('this is my component')
 })
 
-test('It should emit "intersected" event when the component is intersected', async () => {
+test('It should emit "enter" event when the component is intersected', async () => {
   const mockedIntersect = Object.assign({}, Intersect)
   const spy = jest.fn()
 
   const vm = new Vue({
-    template: `<intersect @intersected="intersected"><div></div></intersect>`,
+    template: `<intersect @enter="onEnter"><div></div></intersect>`,
     components: {Intersect: mockedIntersect},
     methods: {
-      intersected: spy
+      onEnter: spy
     }
   }).$mount()
 
@@ -62,6 +62,52 @@ test('It should emit "intersected" event when the component is intersected', asy
   }])
 
   expect(spy).toHaveBeenCalledTimes(1)
+})
+
+test('It should emit "leave" event when the component is not intersected', async () => {
+  const mockedIntersect = Object.assign({}, Intersect)
+  const spy = jest.fn()
+
+  const vm = new Vue({
+    template: `<intersect @leave="onLeave"><div></div></intersect>`,
+    components: {Intersect: mockedIntersect},
+    methods: {
+      onLeave: spy
+    }
+  }).$mount()
+
+  await vm.$nextTick()
+
+  vm._vnode.componentInstance.observer.cb([{
+    isIntersecting: false
+  }])
+
+  expect(spy).toHaveBeenCalledTimes(1)
+})
+
+test('It should emit "change" on any intersection change', async () => {
+  const mockedIntersect = Object.assign({}, Intersect)
+  const spy = jest.fn()
+
+  const vm = new Vue({
+    template: `<intersect @change="onChange"><div></div></intersect>`,
+    components: {Intersect: mockedIntersect},
+    methods: {
+      onChange: spy
+    }
+  }).$mount()
+
+  await vm.$nextTick()
+
+  vm._vnode.componentInstance.observer.cb([{
+    isIntersecting: false
+  }])
+
+  vm._vnode.componentInstance.observer.cb([{
+    isIntersecting: true
+  }])
+
+  expect(spy).toHaveBeenCalledTimes(2)
 })
 
 test('It should be possible to set the threshold property', async () => {
@@ -135,6 +181,8 @@ test('It should warn when no child component is defined', async () => {
 
   expect(global.console.warn).toHaveBeenCalledTimes(1)
   expect(vm._vnode.componentInstance.observer.observables.length).toBe(0)
+
+  global.console.warn.mockReset()
 })
 
 test('It should warn if more than one child component is defined', async () => {
@@ -148,4 +196,24 @@ test('It should warn if more than one child component is defined', async () => {
 
   expect(global.console.warn).toHaveBeenCalledTimes(1)
   expect(vm._vnode.componentInstance.observer.observables.length).toBe(1)
+
+  global.console.warn.mockReset()
+})
+
+test('It should not warn if Vue.config.silent is set to false', async () => {
+  require('vue').config.silent = true
+
+  global.console.warn = jest.fn()
+
+  const vm = new Vue({
+    template: `<intersect><div></div><div></div></intersect>`,
+    components: {Intersect}
+  }).$mount()
+
+  await vm.$nextTick()
+
+  expect(global.console.warn).toHaveBeenCalledTimes(0)
+  expect(vm._vnode.componentInstance.observer.observables.length).toBe(1)
+
+  global.console.warn.mockReset()
 })

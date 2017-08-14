@@ -13,7 +13,7 @@ export default {
     threshold: {
       type: Array,
       required: false,
-      default: () => [0.2]
+      default: () => [0, 0.2]
     },
     root: {
       type: HTMLElement,
@@ -28,10 +28,13 @@ export default {
   },
   created () {
     this.observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        this.$emit('intersected')
-        this.observer.disconnect()
+      if (!entries[0].isIntersecting) {
+        this.$emit('leave', [entries[0]])
+      } else {
+        this.$emit('enter', [entries[0]])
       }
+
+      this.$emit('change', [entries[0]])
     }, {
       threshold: this.threshold,
       root: this.root,

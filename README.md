@@ -79,7 +79,7 @@ This means that it's basically a "decorator". A component which does not output 
 
 | Property   | Type        | Default           | Required | Description                              |
 | ---------- | ----------- | ----------------- | -------- | ---------------------------------------- |
-| threshold  | Array       | [0.2]             | *no*     | [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options) |
+| threshold  | Array       | [0, 0.2]          | *no*     | [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options) |
 | root       | HTMLElement | null              | *no*     | [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options) |
 | rootMargin | String      | *0px 0px 0px 0px* | *no*     | [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options) |
 
@@ -87,9 +87,19 @@ This means that it's basically a "decorator". A component which does not output 
 
 ## Events
 
-| Name            | Arguments | Description                 |
-| --------------- | --------- | --------------------------- |
-| **intersected** | *none*    | Event fired on intersected. |
+| Name       | Arguments                                | Description                              |
+| ---------- | ---------------------------------------- | ---------------------------------------- |
+| **change** | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired on any inte.                 |
+| **enter**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is intersected (visible on the screen) |
+| **leave**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is *not* intersected (not visible on the screen) |
+
+
+
+> The **enter** and **leave** event is sugar, for an often performed operation. You still have to set the threshold to e.g. [0, 0.2] (default). If you leave out "0", it will never call the **leave** event.
+
+
+
+The events is compliant with Vue's [event modifiers](https://vuejs.org/v2/guide/events.html#Event-Modifiers). This means that you could add `.once` to the events to make sure you only trigger your event handler once.
 
 
 

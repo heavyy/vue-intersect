@@ -1,6 +1,6 @@
 {
   "name": "vue-intersect",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A Vue component to add intersection-observer to a Vue component or HTML element.",
   "main": "dist/index.js",
   "repository": "git@github.com:heavyy/vue-intersect.git",

@@ -36,10 +36,13 @@ export default {
     var _this = this;
 
     this.observer = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
-        _this.$emit('intersected');
-        _this.observer.disconnect();
+      if (!entries[0].isIntersecting) {
+        _this.$emit('leave', [entries[0]]);
+      } else {
+        _this.$emit('enter', [entries[0]]);
       }
+
+      _this.$emit('change', [entries[0]]);
     }, {
       threshold: this.threshold,
       root: this.root,
