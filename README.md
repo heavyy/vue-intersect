@@ -16,7 +16,7 @@
 
 ## Introduction
 
-The [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) is an amazing API which allows you to observe one or more HTMLElement for when it has enterede or left the viewport.
+The [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) is an amazing API which allows you to observe one or more HTMLElement for when it has entered or left the viewport.
 
 This API has many use cases like, infinite-scroll, lazy-loading or animations when an element enters the viewport.
 
@@ -49,7 +49,7 @@ This means that it's basically a "decorator". A component which does not output 
 
 ```html
 <template>
-  <intersect @intersected="msg = 'Intersected!'">
+  <intersect @enter="msg = 'Intersected'" @leave="msg = 'Not intersected'">
     <div>{{ msg }}</div>
   </intersect>
 </template>
@@ -61,12 +61,7 @@ This means that it's basically a "decorator". A component which does not output 
     components: { Intersect },
     data () {
       return {
-        msg: 'Not intersected.'
-      }
-    },
-    methods: {
-      onIntersected () {
-        alert('Element has intersected.')
+        msg: 'I will change'
       }
     }
   }
