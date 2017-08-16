@@ -1,7 +1,7 @@
 # Vue Intersect
 **A Vue component to add intersection-observer to a Vue component or HTML element.**
 
-[![npm version](https://badge.fury.io/js/vue-intersect.svg)](https://badge.fury.io/js/vue-intersect) [![Coverage Status](https://coveralls.io/repos/github/heavyy/vue-intersect/badge.svg)](https://coveralls.io/github/heavyy/vue-intersect) ![Build status](https://img.shields.io/travis/heavyy/vue-intersect.svg)
+[![npm version](https://badge.fury.io/js/vue-intersect.svg)](https://badge.fury.io/js/vue-intersect) [![Coverage Status](https://coveralls.io/repos/github/heavyy/vue-intersect/badge.svg)](https://coveralls.io/github/heavyy/vue-intersect) [![Build status](https://img.shields.io/travis/heavyy/vue-intersect.svg)](https://travis-ci.org/heavyy/vue-intersect)
 
 
 
@@ -95,7 +95,7 @@ This means that it's basically a "decorator". A component which does not output 
 
 | Name       | Arguments                                | Description                              |
 | ---------- | ---------------------------------------- | ---------------------------------------- |
-| **change** | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired on any intersection.         |
+| **change** | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired on any inte.                 |
 | **enter**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is intersected (visible on the screen) |
 | **leave**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is *not* intersected (not visible on the screen) |
 
