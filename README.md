@@ -8,6 +8,7 @@
 ## Table of content
 
 * [Introduction](#introduction)
+* [Demo](#demo)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Properties](#properties)
@@ -19,6 +20,16 @@
 The [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) is an amazing API which allows you to observe one or more HTMLElement for when it has entered or left the viewport.
 
 This API has many use cases like, infinite-scroll, lazy-loading or animations when an element enters the viewport.
+
+
+
+## Demo
+
+We've made a basic demo of how you might want to use **vue-intersect**. The code is available in the [gh-pages branch](https://github.com/heavyy/vue-intersect/tree/gh-pages) and the part where **vue-intersect** is used [can be found here](https://github.com/heavyy/vue-intersect/blob/gh-pages/src/components/InfiniteScrollItem.vue#L33).
+
+[Hackernews infinite scroll demo](https://heavyy.github.io/vue-intersect/)
+
+> Please keep in mind that the demo is not production code. Use it as an inspiration.
 
 
 
@@ -84,7 +95,7 @@ This means that it's basically a "decorator". A component which does not output 
 
 | Name       | Arguments                                | Description                              |
 | ---------- | ---------------------------------------- | ---------------------------------------- |
-| **change** | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired on any inte.                 |
+| **change** | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired on any intersection.         |
 | **enter**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is intersected (visible on the screen) |
 | **leave**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is *not* intersected (not visible on the screen) |
 
