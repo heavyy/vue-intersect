@@ -2,10 +2,10 @@
   <div id="infinite-scroll">
     <div class="info">
       <span v-bind:data-count="items.length">Items in list</span>
-      <span>End of batch</span>
+      <span>Intersection Observer</span>
     </div>
 
-    <div class="header"><span class="logo">Y</span> <strong>Hacker News</strong> Top Stories</div>
+    <div class="header"><span class="logo">Y</span> <strong>Hacker News</strong> <span>Top Stories</span> <span>|</span> <a href="https://github.com/heavyy/vue-intersect">Infinite scroll demo of Vue-Intersect</a></div>
     <InfiniteScrollList @load="loadMore" :items="items"></InfiniteScrollList>
   </div>
 </template>
@@ -71,6 +71,14 @@
 
   .header > * {
     margin-right: 5px;
+  }
+
+  .header a {
+    text-decoration: none;
+  }
+
+  .header a:hover {
+    text-decoration: underline;
   }
 
   .logo {
