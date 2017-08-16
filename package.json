@@ -1,33 +1,30 @@
 {
   "name": "vue-intersect",
-  "version": "1.1.1",
-  "description": "A Vue component to add intersection-observer to a Vue component or HTML element.",
-  "main": "dist/index.js",
-  "repository": "git@github.com:heavyy/vue-intersect.git",
+  "description": "Examples on how to use vue-intersect",
+  "version": "1.0.0",
   "author": "Heavyy <hello@heavyy.io>",
-  "license": "MIT",
+  "private": true,
   "scripts": {
-    "test": "./node_modules/.bin/jest --coverage --coverageDirectory coverage",
-    "lint": "./node_modules/.bin/eslint -c ./.eslintrc.js src/**/*.js",
-    "lint:fix": "./node_modules/.bin/eslint -c ./.eslintrc.js src/**/*.js --fix",
-    "build": "./node_modules/.bin/babel ./src -d ./dist/"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.4.2"
+    "babel-polyfill": "^6.23.0",
+    "firebase": "^4.2.0",
+    "intersection-observer": "^0.4.0",
+    "vue": "^2.3.3",
+    "vue-intersect": "^1.1.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-eslint": "^7.2.3",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "coveralls": "^2.13.1",
-    "eslint": "^4.4.1",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "jest": "^20.0.4"
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-env": "^1.5.1",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
+    "file-loader": "^0.9.0",
+    "vue-loader": "^12.1.0",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
   }
 }
