@@ -27,6 +27,12 @@ export default {
     }
   },
   created () {
+    this.isIntersectionObserver = typeof IntersectionObserver !== 'undefined'
+    if (!this.isIntersectionObserver) {
+      console.warn('[vue-intersect] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill')
+      return
+    }
+
     this.observer = new IntersectionObserver((entries) => {
       if (!entries[0].isIntersecting) {
         this.$emit('leave', [entries[0]])
@@ -42,6 +48,7 @@ export default {
     })
   },
   mounted () {
+    if (!this.isIntersectionObserver) return
     this.$nextTick(() => {
       if (this.$slots.default && this.$slots.default.length > 1) {
         warn('[VueIntersect] You may only wrap one element in a <intersect> component.')
@@ -54,6 +61,7 @@ export default {
     })
   },
   destroyed () {
+    if (!this.isIntersectionObserver) return
     this.observer.disconnect()
   },
   render () {
