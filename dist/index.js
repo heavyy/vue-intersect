@@ -14,7 +14,7 @@ export default {
       type: Array,
       required: false,
       default: function _default() {
-        return [0.2];
+        return [0, 0.2];
       }
     },
     root: {
@@ -35,6 +35,12 @@ export default {
   created: function created() {
     var _this = this;
 
+    this.isIntersectionObserver = typeof IntersectionObserver !== 'undefined';
+    if (!this.isIntersectionObserver) {
+      console.warn('[vue-intersect] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill');
+      return;
+    }
+
     this.observer = new IntersectionObserver(function (entries) {
       if (!entries[0].isIntersecting) {
         _this.$emit('leave', [entries[0]]);
@@ -52,6 +58,7 @@ export default {
   mounted: function mounted() {
     var _this2 = this;
 
+    if (!this.isIntersectionObserver) return;
     this.$nextTick(function () {
       if (_this2.$slots.default && _this2.$slots.default.length > 1) {
         warn('[VueIntersect] You may only wrap one element in a <intersect> component.');
@@ -64,6 +71,7 @@ export default {
     });
   },
   destroyed: function destroyed() {
+    if (!this.isIntersectionObserver) return;
     this.observer.disconnect();
   },
   render: function render() {
