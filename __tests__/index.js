@@ -217,3 +217,52 @@ test('It should not warn if Vue.config.silent is set to false', async () => {
 
   global.console.warn.mockReset()
 })
+
+test('It should warn if IntersectionObserver is not available', async () => {
+  global.IntersectionObserver = undefined
+  global.console.warn = jest.fn()
+  const vm = new Vue({
+    template: `<intersect><div></div><div></div></intersect>`,
+    components: {Intersect}
+  }).$mount()
+
+  await vm.$nextTick()
+
+  expect(global.console.warn).toHaveBeenCalled()
+  expect(global.console.warn).toHaveBeenCalledWith('[vue-intersect] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill')
+  global.IntersectionObserver = IntersectionObserver
+})
+
+test('It should return in mounted function if IntersectionObserver is not available', () => {
+  global.IntersectionObserver = undefined
+  const vm = new Vue({
+    template: `<intersect><div></div><div></div></intersect>`,
+    components: {Intersect}
+  }).$mount()
+
+  vm.$nextTick = jest.fn()
+  vm.observer = {
+    observe: jest.fn()
+  }
+
+  expect(vm.$nextTick).not.toHaveBeenCalled()
+  expect(vm.observer.observe).not.toHaveBeenCalled()
+  global.IntersectionObserver = IntersectionObserver
+})
+
+test('It should return in destroyed function if IntersectionObserver is not available', () => {
+  global.IntersectionObserver = undefined
+  const vm = new Vue({
+    template: `<intersect><div></div><div></div></intersect>`,
+    components: {Intersect}
+  }).$mount()
+
+  vm.observer = {
+    observe: jest.fn()
+  }
+
+  vm.$destroy()
+
+  expect(vm.observer.observe).not.toHaveBeenCalled()
+  global.IntersectionObserver = IntersectionObserver
+})
