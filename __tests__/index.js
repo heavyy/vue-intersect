@@ -218,51 +218,65 @@ test('It should not warn if Vue.config.silent is set to false', async () => {
   global.console.warn.mockReset()
 })
 
-test('It should warn if IntersectionObserver is not available', async () => {
-  global.IntersectionObserver = undefined
-  global.console.warn = jest.fn()
-  const vm = new Vue({
-    template: `<intersect><div></div><div></div></intersect>`,
-    components: {Intersect}
-  }).$mount()
+describe('when no IntersectionObserver', () => {
+  beforeEach(() => {
+    global.IntersectionObserver = undefined
+  })
 
-  await vm.$nextTick()
+  afterEach(() => {
+    global.IntersectionObserver = IntersectionObserver
+  })
 
-  expect(global.console.warn).toHaveBeenCalled()
-  expect(global.console.warn).toHaveBeenCalledWith('[vue-intersect] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill')
-  global.IntersectionObserver = IntersectionObserver
-})
+  test('It should warn when the component is created', async () => {
+    global.console.warn = jest.fn()
 
-test('It should return in mounted function if IntersectionObserver is not available', () => {
-  global.IntersectionObserver = undefined
-  const vm = new Vue({
-    template: `<intersect><div></div><div></div></intersect>`,
-    components: {Intersect}
-  }).$mount()
+    const vm = new Vue({
+      template: `<intersect><div></div><div></div></intersect>`,
+      components: {Intersect}
+    }).$mount()
 
-  vm.$nextTick = jest.fn()
-  vm.observer = {
-    observe: jest.fn()
-  }
+    await vm.$nextTick()
 
-  expect(vm.$nextTick).not.toHaveBeenCalled()
-  expect(vm.observer.observe).not.toHaveBeenCalled()
-  global.IntersectionObserver = IntersectionObserver
-})
+    expect(global.console.warn).toHaveBeenCalledWith('[vue-intersect] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill')
+  })
 
-test('It should return in destroyed function if IntersectionObserver is not available', () => {
-  global.IntersectionObserver = undefined
-  const vm = new Vue({
-    template: `<intersect><div></div><div></div></intersect>`,
-    components: {Intersect}
-  }).$mount()
+  test('It should set isIntersectionObserver to false  when the component is created', async () => {
+    const vm = new Vue({
+      template: `<intersect><div></div><div></div></intersect>`,
+      components: {Intersect}
+    }).$mount()
 
-  vm.observer = {
-    observe: jest.fn()
-  }
+    await vm.$nextTick()
 
-  vm.$destroy()
+    expect(vm._vnode.componentInstance.isIntersectionObserver).toEqual(false)
+  })
 
-  expect(vm.observer.observe).not.toHaveBeenCalled()
-  global.IntersectionObserver = IntersectionObserver
-})
+  test('It should not observe when the component is mounted', () => {
+    const vm = new Vue({
+      template: `<intersect><div></div><div></div></intersect>`,
+      components: {Intersect}
+    }).$mount()
+
+    vm.$nextTick = jest.fn()
+    vm._vnode.componentInstance.observer = {
+      observe: jest.fn()
+    }
+
+    expect(vm.$nextTick).not.toHaveBeenCalled()
+    expect(vm._vnode.componentInstance.observer.observe).not.toHaveBeenCalled()
+  })
+
+  test('It should not disconnect when the component is destroyed', () => {
+    global.console.error = jest.fn()
+
+    const vm = new Vue({
+      template: `<intersect><div></div><div></div></intersect>`,
+      components: {Intersect}
+    }).$mount()
+
+    vm.$destroy()
+
+    expect(global.console.error).not.toHaveBeenCalled()
+  })
+});
+
