@@ -113,4 +113,4 @@ The events is compliant with Vue's [event modifiers](https://vuejs.org/v2/guide/
 
 The IntersectionObserver API is not currently available in all browsers ([IE11, Safari and iOS Safari](http://caniuse.com/#feat=intersectionobserver)). If you intend to support these browsers, you'll need to add a poylfill to your bundle.
 
-[WICG IntersectionObserver Polyfill](https://github.com/WICG/IntersectionObserver/tree/gh-pages/polyfill) is highly recommended.
+[WICG IntersectionObserver Polyfill](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) is highly recommended.
