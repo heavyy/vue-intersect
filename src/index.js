@@ -16,7 +16,7 @@ export default {
       default: () => [0, 0.2]
     },
     root: {
-      type: HTMLElement,
+      type: typeof HTMLElement !== 'undefined' ? HTMLElement : Function,
       required: false,
       default: () => null
     },
@@ -27,19 +27,21 @@ export default {
     }
   },
   created () {
-    this.observer = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) {
-        this.$emit('leave', [entries[0]])
-      } else {
-        this.$emit('enter', [entries[0]])
-      }
+    if (typeof HTMLElement !== 'undefined') {
+      this.observer = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) {
+          this.$emit('leave', [entries[0]])
+        } else {
+          this.$emit('enter', [entries[0]])
+        }
 
-      this.$emit('change', [entries[0]])
-    }, {
-      threshold: this.threshold,
-      root: this.root,
-      rootMargin: this.rootMargin
-    })
+        this.$emit('change', [entries[0]])
+      }, {
+        threshold: this.threshold,
+        root: this.root,
+        rootMargin: this.rootMargin
+      })
+    }
   },
   mounted () {
     this.$nextTick(() => {
