@@ -29,12 +29,12 @@ export default {
   created () {
     this.observer = new IntersectionObserver((entries) => {
       if (!entries[0].isIntersecting) {
-        this.$emit('leave', [entries[0]])
+        this.$emit('leave', entries[0])
       } else {
-        this.$emit('enter', [entries[0]])
+        this.$emit('enter', entries[0])
       }
 
-      this.$emit('change', [entries[0]])
+      this.$emit('change', entries[0])
     }, {
       threshold: this.threshold,
       root: this.root,
