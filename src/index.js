@@ -16,7 +16,7 @@ export default {
       default: () => [0, 0.2]
     },
     root: {
-      type: HTMLElement,
+      type: typeof HTMLElement !== 'undefined' ? HTMLElement : Object,
       required: false,
       default: () => null
     },
@@ -26,7 +26,7 @@ export default {
       default: () => '0px 0px 0px 0px'
     }
   },
-  created () {
+  mounted () {
     this.observer = new IntersectionObserver((entries) => {
       if (!entries[0].isIntersecting) {
         this.$emit('leave', [entries[0]])
@@ -40,8 +40,7 @@ export default {
       root: this.root,
       rootMargin: this.rootMargin
     })
-  },
-  mounted () {
+
     this.$nextTick(() => {
       if (this.$slots.default && this.$slots.default.length > 1) {
         warn('[VueIntersect] You may only wrap one element in a <intersect> component.')
