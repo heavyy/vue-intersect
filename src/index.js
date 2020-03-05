@@ -53,7 +53,7 @@ export default {
     })
   },
   destroyed () {
-    this.$emit('destroyed');
+    this.$emit('destroyed')
     this.observer.disconnect()
   },
   render () {

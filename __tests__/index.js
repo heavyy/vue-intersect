@@ -165,6 +165,33 @@ test('It should disconnect the IntersectionObserver when the component is destro
   vm.$destroy()
   expect(spy.destroyed).toHaveBeenCalledTimes(1)
   expect(spy.disconnect).toHaveBeenCalledTimes(1)
+  spy.disconnect.mockClear()
+})
+
+test('It should emit event when component is destroyed', async () => {
+  const mockedIntersect = Object.assign({}, Intersect)
+  const onDestroy = jest.fn()
+
+  const spy = {
+    destroyed: jest.spyOn(mockedIntersect, 'destroyed'),
+    disconnect: jest.spyOn(global.IntersectionObserver.prototype, 'disconnect')
+  }
+
+  const vm = new Vue({
+    template: `<intersect @destroyed="onDestroy"><div></div></intersect>`,
+    components: {Intersect: mockedIntersect},
+    methods: {
+      onDestroy
+    }
+  }).$mount()
+
+  await vm.$nextTick()
+
+  vm.$destroy()
+
+  expect(spy.destroyed).toHaveBeenCalledTimes(1)
+  expect(spy.disconnect).toHaveBeenCalledTimes(1)
+  expect(onDestroy).toHaveBeenCalledTimes(1)
 })
 
 test('It should warn when no child component is defined', async () => {
