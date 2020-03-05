@@ -6,7 +6,7 @@ import Intersect from '../src'
 global.IntersectionObserver = IntersectionObserver
 
 test('It should be a function', () => {
-  expect(typeof Intersect.created).toBe('function')
+  expect(typeof Intersect.mounted).toBe('function')
 })
 
 test('It should create a instance of IntersectionObserver', async () => {
@@ -23,7 +23,6 @@ test('It should mount correctly and add the item to the observers list', async (
   const mockedIntersect = Object.assign({}, Intersect)
 
   const spy = {
-    created: jest.spyOn(mockedIntersect, 'created'),
     mounted: jest.spyOn(mockedIntersect, 'mounted')
   }
 
@@ -36,7 +35,6 @@ test('It should mount correctly and add the item to the observers list', async (
 
   expect(vm._vnode.componentInstance.observer.observables.length).toBe(1)
 
-  expect(spy.created).toHaveBeenCalledTimes(1)
   expect(spy.mounted).toHaveBeenCalledTimes(1)
 
   expect(vm.$el.outerHTML).toBe(`<div>this is my component</div>`)
