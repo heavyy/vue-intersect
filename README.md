@@ -98,6 +98,7 @@ This means that it's basically a "decorator". A component which does not output 
 | **change** | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired on any inte.                 |
 | **enter**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is intersected (visible on the screen) |
 | **leave**  | [*IntersectionObserverEntry*](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Event fired when the element is *not* intersected (not visible on the screen) |
+| **destroyed** | None | Fired when the underlying element is destroyed |
 
 
 
