@@ -30,7 +30,8 @@ export default {
       default: function _default() {
         return '0px 0px 0px 0px';
       }
-    }
+    },
+    once: Boolean
   },
   mounted: function mounted() {
     var _this = this;
@@ -40,6 +41,10 @@ export default {
         _this.$emit('leave', [entries[0]]);
       } else {
         _this.$emit('enter', [entries[0]]);
+        if (_this.$props.once) {
+          _this.observer.disconnect();
+          return;
+        }
       }
 
       _this.$emit('change', [entries[0]]);

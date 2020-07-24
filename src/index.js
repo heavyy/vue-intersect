@@ -24,7 +24,8 @@ export default {
       type: String,
       required: false,
       default: () => '0px 0px 0px 0px'
-    }
+    },
+    once: Boolean
   },
   mounted() {
     this.observer = new IntersectionObserver((entries) => {
@@ -32,6 +33,10 @@ export default {
         this.$emit('leave', [entries[0]])
       } else {
         this.$emit('enter', [entries[0]])
+        if (this.$props.once) {
+          this.observer.disconnect();
+          return;
+        }
       }
 
       this.$emit('change', [entries[0]])
@@ -57,8 +62,6 @@ export default {
     this.observer.disconnect()
   },
   render() {
-    return this.$slots.default ? this.$slots.default({
-      observer: this.observer
-    }) : null
+    return this.$slots.default ? this.$slots.default[0] : null
   }
 }
