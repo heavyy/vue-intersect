@@ -1,14 +1,5 @@
-import Vue from 'vue'
-
-const warn = (msg) => {
-  if (!Vue.config.silent) {
-    console.warn(msg)
-  }
-}
-
 export default {
   name: 'intersect',
-  abstract: true,
   props: {
     threshold: {
       type: Array,
@@ -26,6 +17,7 @@ export default {
       default: () => '0px 0px 0px 0px'
     }
   },
+  emits: [ 'destroyed', 'enter', 'change', 'leave' ],
   mounted () {
     this.observer = new IntersectionObserver((entries) => {
       if (!entries[0].isIntersecting) {
@@ -41,22 +33,25 @@ export default {
       rootMargin: this.rootMargin
     })
 
+    const slot = this.$slots.default()
+
     this.$nextTick(() => {
-      if (this.$slots.default && this.$slots.default.length > 1) {
-        warn('[VueIntersect] You may only wrap one element in a <intersect> component.')
-      } else if (!this.$slots.default || this.$slots.default.length < 1) {
-        warn('[VueIntersect] You must have one child inside a <intersect> component.')
+      if (!slot || slot.length < 1) {
+        console.warn('[VueIntersect] You must have one child inside a <intersect> component.')
         return
       }
 
-      this.observer.observe(this.$slots.default[0].elm)
+      slot.filter(node => node.el).forEach(node => {
+        this.observer.observe(node.el)
+      })
     })
   },
-  destroyed () {
+  unmounted () {
     this.$emit('destroyed')
     this.observer.disconnect()
   },
   render () {
-    return this.$slots.default ? this.$slots.default[0] : null
+    const slot = this.$slots.default()
+    return slot || null
   }
 }

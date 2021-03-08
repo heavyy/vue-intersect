@@ -1,6 +1,6 @@
 {
   "name": "vue-intersect",
-  "version": "1.1.5",
+  "version": "2.0.0",
   "description": "A Vue component to add intersection-observer to a Vue component or HTML element.",
   "main": "dist/index.js",
   "repository": "git@github.com:heavyy/vue-intersect.git",
@@ -13,10 +13,9 @@
     "build": "./node_modules/.bin/babel ./src -d ./dist/"
   },
   "peerDependencies": {
-    "vue": "^2.4.2"
+    "vue": "^3.0.7"
   },
   "devDependencies": {
-    "vue": "^2.4.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
