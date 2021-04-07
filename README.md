@@ -37,6 +37,8 @@ We've made a basic demo of how you might want to use **vue-intersect**. The code
 
 Simply install using your favorite package manager 🔥
 
+> ⚠️ If you're using Vue 3 then install `vue-intersect@next`
+
 #### NPM
 
 ```bash
