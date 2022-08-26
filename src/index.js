@@ -41,16 +41,7 @@ export default {
       rootMargin: this.rootMargin
     })
 
-    this.$nextTick(() => {
-      if (this.$slots.default && this.$slots.default.length > 1) {
-        warn('[VueIntersect] You may only wrap one element in a <intersect> component.')
-      } else if (!this.$slots.default || this.$slots.default.length < 1) {
-        warn('[VueIntersect] You must have one child inside a <intersect> component.')
-        return
-      }
-
-      this.observer.observe(this.$slots.default[0].elm)
-    })
+    this.observe()
   },
   destroyed () {
     this.$emit('destroyed')
@@ -58,5 +49,30 @@ export default {
   },
   render () {
     return this.$slots.default ? this.$slots.default[0] : null
+  },
+  methods: {
+    observe() {
+      this.$nextTick(() => {
+        const slot = this.$slots.default
+
+        if (slot && slot.length > 1) {
+          warn('[VueIntersect] You may only wrap one element in a <intersect> component.')
+        } else if (!slot || slot.length < 1) {
+          warn('[VueIntersect] You must have one child inside a <intersect> component.')
+          return
+        }
+
+        const vNode = slot[0]
+
+        if (vNode.asyncFactory && !vNode.asyncFactory.resolved) {
+          vNode.asyncFactory().then(() => {
+            this.observe()
+          })
+        } else {
+          const { elm } = vNode
+          this.observer.observe(elm)
+        }
+      })
+    }
   }
 }
